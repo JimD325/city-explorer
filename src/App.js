@@ -11,18 +11,26 @@ class App extends React.Component {
       searchQuery: "",
       locationName: "",
       locationLat:"",
-      locationLong:""
+      locationLong:"",
+      locationMap:""
+
     }
   }
 
   getLocation = async () => {
     const url = `https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATION_KEY}&q=${this.state.searchQuery}&format=json`;
     const response = await axios.get(url);
+
+
     console.log("Response from Axios: ", response.data[0]);
+
     this.setState({ locationName: response.data[0].display_name});
     this.setState({  locationLat: response.data[0].lat});
     this.setState({  locationLong: response.data[0].lon});
   }
+
+
+
 
   render() {
     console.log("this.state in App.js: ", this.state);
@@ -37,11 +45,11 @@ class App extends React.Component {
         {this.state.locationName && <>
         
               <Card style={{ width: '35rem' }}>
-            <Card.Img variant="top" src="https://via.placeholder.com/150" />
+            <Card.Img variant="top" src= {`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_KEY}&center=${this.state.locationLat},${this.state.locationLong}&zoom=18`}/>
             <Card.Body>
-              <Card.Title>{this.state.LocationName}</Card.Title>
+              <Card.Title>{this.state.locationName}</Card.Title>
               <Card.Text>
-                Heres what we could find for you
+                Heres what we could find for you about {this.state.locationName}
               </Card.Text>
             </Card.Body>
             <ListGroup className="list-group-flush">
@@ -54,11 +62,6 @@ class App extends React.Component {
             </Card.Body>
           </Card>
 
-
-
-
-
-          <h2>We found you {this.state.locationName}, with a lattitude of {this.state.locationLat} and a longitude of {this.state.locationLong}</h2>
           </>
         }
         
