@@ -2,8 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Search from './Search';
 import Map from './Map';
-import Card from 'react-bootstrap/Card'
-import { ListGroupItem, ListGroup } from 'react-bootstrap';
+
 
 
 class Main extends React.Component {
@@ -15,7 +14,8 @@ class Main extends React.Component {
       locationName: "",
       locationLat: "",
       locationLong: "",
-      locationMap: ""
+      locationMap: "",
+      locationWeather: []
 
     }
   }
@@ -29,45 +29,33 @@ class Main extends React.Component {
     this.setState({ locationLong: response.data[0].lon });
     console.log(this.state, response.data)
   }
-
+  searchCity = (event) => {
+    event.preventDefault();
+    this.setState({ searchQuery: event.target.value })
+  }
+  handleClick = (event) =>{
+    event.preventDefault();
+    this.getLocation();
+    
+  }
+  
   render() {
     console.log("this.state in Main.js: ", this.state);
-  return (
-    <>
-      <div className="App">
-        <h1>Welcome to City Explorer!</h1>
-        <input
-          onChange={(event) => this.setState({ searchQuery: event.target.value })}
-          placeholder="search for a city!"
-        />
-        <button onClick={this.getLocation}>Explore!</button>
-        {this.state.locationName && <>
+    return (
+      <>
+        <Search 
+        locationName = {this.state.locationName} 
+        locationLat= {this.state.locationLat} 
+        locationLong= {this.state.locationLong}
+        handleClick ={this.handleClick}
+        searchCity= {this.searchCity}/>
+        <Map  
+        locationLat ={this.state.locationLat} 
+        locationLong = {this.state.locationLong}/>
 
-          <Card style={{ width: '35rem' }}>
-            <Card.Img variant="top" src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_KEY}&center=${this.state.locationLat},${this.state.locationLong}&zoom=13`} />
-            <Card.Body>
-              <Card.Title>{this.state.locationName}</Card.Title>
-              <Card.Text>
-                Heres what we could find for you about {this.state.locationName}
-              </Card.Text>
-            </Card.Body>
-            <ListGroup className="list-group-flush">
-              <ListGroupItem>Longitude: {this.state.locationLong}</ListGroupItem>
-              <ListGroupItem>Latitude: {this.state.locationLat}</ListGroupItem>
-            </ListGroup>
-            <Card.Body>
-              <Card.Link href="#"></Card.Link>
-              <Card.Link href="#"></Card.Link>
-            </Card.Body>
-          </Card>
-
-        </>
-        }
-
-      </div>
-    </>
-  );
+      </>
+    );
   }
 }
 
-        export default Main;
+export default Main;

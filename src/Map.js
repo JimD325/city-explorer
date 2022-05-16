@@ -1,14 +1,14 @@
 import React from 'react';
-import Card from 'react-bootstrap/Card'
-import { ListGroupItem, ListGroup } from 'react-bootstrap';
+
 
 class Map extends React.Component {
   render() {
-    console.log(this.state);
+    console.log(this.props);
     return (
-      
-      <h1>Map</h1>
-  );
+      <>
+        {/* <img src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_KEY}&center=${this.props.locationLat},${this.props.locationLong}&zoom=13`} alt ='hello'/> */}
+      </>
+    );
   }
 }
 
