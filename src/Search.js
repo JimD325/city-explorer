@@ -5,7 +5,6 @@ import Card from 'react-bootstrap/Card';
 
 class Search extends React.Component {
   render() {
-    console.log(this.props);
     return (
       <>
 
