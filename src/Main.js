@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import Search from './Search';
-import Map from './Map';
 import Weather from './Weather';
 import Movies from './Movies';
 
@@ -73,9 +72,7 @@ console.log("working");
           locationLong={this.state.locationLong}
           handleClick={this.handleClick}
           searchCity={this.searchCity} />
-        <Map
-          locationLat={this.state.locationLat}
-          locationLong={this.state.locationLong} />
+
         <Weather locationWeather={this.state.locationWeather} />
         <Movies movies={this.state.locationMovies} />
       </>

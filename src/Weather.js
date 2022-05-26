@@ -1,5 +1,5 @@
 import React from 'react';
-import Accordion from 'react-bootstrap/Accordion'
+import WeatherDay from './WeatherDay';
 
 class Weather extends React.Component {
 
@@ -7,18 +7,14 @@ class Weather extends React.Component {
 
     return (
       <>
-        {this.props.locationWeather && <h3>weather</h3>}
-        <Accordion defaultActiveKey="0">
-          {this.props.locationWeather.map((value, idx) => (
-            <Accordion.Item eventKey={idx} key={idx}>
-              <Accordion.Header>{value.datetime}</Accordion.Header>
-              <Accordion.Body>
-                {value.description}
-              </Accordion.Body>
-            </Accordion.Item>
-          )
-          )}
-        </Accordion>
+        {this.props.locationWeather.map((value, idx) => (
+          <WeatherDay
+            idx={idx}
+            datetime={value.datetime}
+            description={value.description}
+          />
+
+        ))}
       </>
     );
   }
